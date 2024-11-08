@@ -1,0 +1,58 @@
+class Student:
+    def __init__(self, name):
+        self.name = name
+        self.grades = []
+
+    def add_grade(self, grade):
+        self.grades.append(grade)
+
+    def calculate_average(self):
+        if not self.grades:
+            return 0
+        return sum(self.grades) / len(self.grades)
+
+
+def main():
+    students = {}
+
+    while True:
+        print("\nStudent Grade Tracker")
+        print("1. Add Student")
+        print("2. Add Grade")
+        print("3. Show Average Grade")
+        print("4. Exit")
+
+        choice = input("Choose an option (1-4): ")
+
+        if choice == '1':
+            name = input("Ujjawal: ")
+            students[name] = Student(name)
+            print(f"Student '{name}' added.")
+
+        elif choice == '2':
+            name = input("Niharika: ")
+            if name in students:
+                grade = float(input(f"Enter the grade for {name}: "))
+                students[name].add_grade(grade)
+                print(f"Grade {grade} added for {name}.")
+            else:
+                print(f"Student '{name}' not found.")
+
+        elif choice == '3':
+            name = input("Rohit: ")
+            if name in students:
+                average = students[name].calculate_average()
+                print(f"{name}'s average grade is: {average:.2f}")
+            else:
+                print(f"Student '{name}' not found.")
+
+        elif choice == '4':
+            print("Exiting the program.")
+            break
+
+        else:
+            print("Invalid option. Please choose a valid option (1-4).")
+
+
+if __name__ == "__main__":
+    main()
