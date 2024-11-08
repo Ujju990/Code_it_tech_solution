@@ -1,0 +1,61 @@
+class User:
+    def __init__(self, username):
+        self.username = username
+        self.posts = []
+
+    def create_post(self, content):
+        post = Post(content, self.username)
+        self.posts.append(post)
+        return post
+
+    def __str__(self):
+        return self.username
+
+
+class Post:
+    def __init__(self, content, username):
+        self.content = content
+        self.username = username
+
+    def __str__(self):
+        return f"{self.username}: {self.content}"
+
+
+class SocialMediaPlatform:
+    def __init__(self):
+        self.users = {}
+
+    def add_user(self, username):
+        if username in self.users:
+            print(f"User  '{username}' already exists.")
+        else:
+            self.users[username] = User(username)
+            print(f"User  '{username}' added.")
+
+    def create_post(self, username, content):
+        if username in self.users:
+            post = self.users[username].create_post(content)
+            print(f"Post created by {username}: {post.content}")
+        else:
+            print(f"User  '{username}' not found.")
+
+    def display_posts(self):
+        print("\nAll Posts:")
+        for user in self.users.values():
+            for post in user.posts:
+                print(post)
+
+
+# Initialize the social media platform
+platform = SocialMediaPlatform()
+
+# Adding users
+platform.add_user("Alice")
+platform.add_user("Bob")
+
+# Creating posts
+platform.create_post("Alice", "Hello, this is my first post!")
+platform.create_post("Bob", "Hi everyone, nice to meet you!")
+
+# Display all posts
+platform.display_posts()
